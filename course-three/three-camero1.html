@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>three-camera1</title>
+	<script type="text/javascript" src="three.js"></script>
+</head>
+<body onload="init()">
+	<canvas id="mainCanvas" width="400px" height="300px"></canvas>
+
+	<script type="text/javascript">
+		//透视投影照相机
+		function init(){
+			//定义一个渲染器
+			var renderder = new THREE.WebGLRenderer({
+				canvas: document.getElementById('mainCanvas')
+			})
+			renderder.setClearColor(0X000000);
+
+			//定义一个场景
+			var scene = new THREE.Scene();
+
+			//定义照相机
+			var camera = new THREE.PerspectiveCamera(60,400/300,1,10);
+			camera.position.set(0,0,5);
+			scene.add(camera);
+
+			var cube = new THREE.Mesh(new THREE.CubeGeometry(1,1,1),
+					new THREE.MeshBasicMaterial({
+						color: 0xff0000,
+						wireframe: true
+					})
+				);
+			scene.add(cube);
+
+			renderder.render(scene,camera);
+		}
+	</script>
+</body>
+</html>

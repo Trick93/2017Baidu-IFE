@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>three-shape</title>
+	<script type="text/javascript" src="three.js"></script>
+</head>
+<body onload="init()">
+	<canvas id="mainCanvas" width="1200px" height="900px"></canvas>
+
+	<script type="text/javascript">
+
+		function init(){
+			//定义一个渲染器
+			var renderder = new THREE.WebGLRenderer({
+				canvas: document.getElementById('mainCanvas')
+			})
+			renderder.setClearColor(0X000000);
+
+			//定义一个场景
+			var scene = new THREE.Scene();
+
+			//定义照相机
+			var camera = new THREE.OrthographicCamera(-4,4,3.75,-3.75,0.1,100);
+			camera.position.set(-25,25,25);
+			camera.lookAt(new THREE.Vector3(0,0,0))
+			scene.add(camera);
+
+			var material = new THREE.MeshBasicMaterial({
+				color: 0xffff00,
+				wireframe: false
+			});
+
+			drawCube(scene,material);
+			//drawPlane(scene,material);
+			//drawSphere(scene,material);
+			//drawCircle(scene,material);
+			//drawCylinder(scene,material);
+			//drawTetrahead(scene,material);
+			//drawOctahed(scene,material);
+			//drawIcosahed(scene,material);
+			//drawTorus(scene,material);
+			//drawTorusKnot(scene,material);
+
+			renderder.render(scene,camera);
+		}
+
+		//长方体
+		function drawCube(scene,material){
+			var cube = new THREE.Mesh(new THREE.CubeGeometry(1,1.5,2),material);
+			scene.add(cube);
+		}
+
+		//平面
+		function drawPlane(scene,material){
+			var plane = new THREE.Mesh(new THREE.PlaneGeometry(2,4),material);
+			scene.add(plane);
+		}
+
+		//球体
+		function drawSphere(scene,material){
+			var sphere = new THREE.Mesh(new THREE.SphereGeometry(3,8,6),material);
+			scene.add(sphere);
+		}
+
+		//圆形
+		function drawCircle(scene,material){
+			var circle = new THREE.Mesh(new THREE.CircleGeometry(3,18),material);
+			scene.add(circle);
+		}
+
+		//圆柱体
+		function drawCylinder(scene,material){
+			//var cylinder = new THREE.Mesh(new THREE.CylinderGeometry(2,2,4,18,3),material);
+			var cylinder = new THREE.Mesh(new THREE.CylinderGeometry(2,3,4,18,3),material);
+			var cylinder = new THREE.Mesh(new THREE.CylinderGeometry(2,3,4,18,3,true),material);
+			scene.add(cylinder);
+		}
+
+		//正四面体
+		function drawTetrahead(scene,material){
+			var tetrahead = new THREE.Mesh(new THREE.TetrahedronGeometry(3),material);
+			scene.add(tetrahead);
+		}
+
+		//正八面体
+		function drawOctahed(scene,material){
+			var octahed = new THREE.Mesh(new THREE.OctahedronGeometry(3),material);
+			scene.add(octahed);
+		}
+
+		//正十二面体
+		function drawIcosahed(scene,material){
+			var icosahed = new THREE.Mesh(new THREE.IcosahedronGeometry(3),material);
+			scene.add(icosahed);
+		}
+
+		//圆环面
+		function drawTorus(scene,material){
+			var torus = new THREE.Mesh(new THREE.TorusGeometry(3,1,12,18),material);
+			scene.add(torus);
+		}
+
+		//圆环结
+		function drawTorusKnot(scene,material){
+			var torusKnot = new THREE.Mesh(new THREE.TorusKnotGeometry(2,0.5,32,8),material);
+			torusKnot.position.x = 1;
+			scene.add(torusKnot);
+		}
+	</script>
+</body>
+</html>
