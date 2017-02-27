@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		.box{
+			margin: 100px auto;
+			width: 300px;
+		}
+
+		input[type="checkbox"]{
+			display: none;
+		}
+		input[type="radio"]{
+			display: none;
+		}
+		/*伪元素实现checkbox*/
+		#myCheck + label,.myRadio + label{
+			background: transparent;
+			border: 1px solid #CCC;
+			width: 16px;
+			height: 16px;
+			vertical-align: middle;
+			text-align: center;
+			display: inline-block;
+			margin-right: 50px;
+			margin-bottom: 20px;
+		}
+		#myCheck:checked + label{
+			border-color: #D83C30;
+		}
+		#myCheck:checked + label::after{
+			content: '\2714';
+			line-height: 16px;
+			color: #D83C30;
+		}
+		/*雪碧图实现checkbox*/
+		#myCheckSprit + label{
+			margin-right: 50px;
+			margin-bottom: 20px;
+			background: transparent;
+			border: none;
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+			background: url("bg.png") no-repeat;
+		}
+		#myCheckSprit + label{
+			background-position: -25px -32px;
+		}
+		#myCheckSprit:checked + label{
+			background-position: -60px -31px;
+		}
+		
+		/*伪元素实现radio*/
+		.myRadio + label{
+			border-radius: 100%;
+			-webkit-border-radius: 100%;
+		}
+		.myRadio:checked + label{
+			border-color: #D83C30;
+		}
+		.myRadio:checked + label::after{
+			content : "";
+			display: inline-block;
+			background: #D83C30;
+			width: 8px;
+			height: 8px;
+			vertical-align: 15%;
+			border-radius: 100%;
+			-webkit-border-radius: 100%;
+		}
+		/*雪碧图实现radio*/
+		.myRadioSprit + label{
+			margin-right: 50px;
+			margin-bottom: 20px;
+			background: transparent;
+			border: none;
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+			background: url("bg.png") no-repeat;
+		}
+		.myRadioSprit + label{
+			background-position: -24px -8px;
+		}
+		.myRadioSprit:checked + label{
+			background-position: -59px -10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="ex1">
+			<h2>使用伪元素实现:</h2>
+			<input type="checkbox" id="myCheck">
+			<label for="myCheck"></label>
+			<br />
+			<input type="radio" name="sex" id="myRadio" class="myRadio">
+			<label for="myRadio"></label>
+			<input type="radio" name="sex" id="myRadio1" class="myRadio">
+			<label for="myRadio1"></label>
+		</div>
+		<div class="ex1">
+			<h2>使用背景图实现:</h2>
+			<input type="checkbox" id="myCheckSprit">
+			<label for="myCheckSprit"></label>
+			<br />
+			<input type="radio" name="hab" id="myRadioSprit" class="myRadioSprit">
+			<label for="myRadioSprit"></label>
+			<input type="radio" name="hab" id="myRadioSprit1" class="myRadioSprit">
+			<label for="myRadioSprit1"></label>
+		</div>
+	</div>
+</body>
+</html>
