@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>自定义右键菜单</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body{
+			font-family: "微软雅黑";
+		}
+		.box{
+			width: 100%;
+			height: 100px;
+			margin: 10% auto;
+			background: #F5F5F5;
+			border: 1px solid #E3E3E3;
+			text-align: center;
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+		}
+		.box span{
+			display: inline-block;
+			margin-top: 40px;
+		}
+		#menu{
+			width: 150px;
+			padding: 10px;
+			background: #fff;
+			border: 1px solid #D0D0D0;
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+			position: absolute;
+			z-index: 100;
+		}
+		#menu li{
+			list-style: none;
+			padding: 5px;
+			cursor: pointer;
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+		}
+		.active{
+			background: #94BA65;
+		}
+	</style>
+</head>
+<body>
+	<div class="box" id="box">
+		<span>试试右键单击我</span>
+	</div>
+	<ul id="menu">
+		<li>分享到微博</li>
+		<li>分享到微信</li>
+		<li>分享到贴吧</li>
+	</ul>
+
+	<script type="text/javascript">
+		window.onload = function(){
+			var menuEle = document.getElementById("menu");
+			var boxEle = document.getElementById("box");
+
+			menuEle.style.display = "none";
+
+			var title = menuEle.getElementsByTagName("li");
+
+			var width = document.body.clientWidth;//浏览器宽度
+			var height = document.body.scrollHeight;//浏览器高度
+			if(isFirefox=navigator.userAgent.indexOf("Firefox")>0){  
+        		height = document.documentElement.clientHeight;  
+   			} 
+			/*这里用了scrollHeigh获取是可见区域的高度，clientHeight获取的是body的宽度为0*/
+
+			for(var i=0;i<title.length;i++){
+				title[i].onmouseover = function(){
+					this.className = "active";
+				}
+				title[i].onmouseout = function(){
+					this.className = "";
+				}
+			}
+
+			boxEle.oncontextmenu = function(event){
+				var event = event || window.event;
+				menuEle.style.display = "block";
+				
+				var x = event.clientX;//事件发生的x坐标
+				var y = event.clientY;//事件发生的y坐标
+				var menuWidth = menuEle.clientWidth;//菜单宽度
+				var menuHeight = menuEle.clientHeight;//菜单高度
+
+				if(width - x < menuWidth+10 && height - y < menuHeight+10){console.log("sss");
+					menuEle.style.left = x - menuWidth + "px";
+					menuEle.style.top = y - menuHeight - 15 + "px";
+				}
+				else if(width - x < menuWidth+10){
+					menuEle.style.left = x - menuWidth + "px";
+					menuEle.style.top = y - 15 + "px";
+				}
+				else if(height - y < menuHeight+10){
+					menuEle.style.left = x + "px";
+					menuEle.style.top = y - menuHeight - 15 + "px";
+				}
+				else{
+					menuEle.style.left = event.clientX + "px";
+					menuEle.style.top = event.clientY - 15 + "px";
+				}
+				
+				return false;
+			}
+
+			function leftClick(){
+				menuEle.style.display = "none";
+			}
+
+			document.addEventListener("click",leftClick);
+			document.addEventListener("contextmenu",leftClick,true);
+			// boxEle.onclick = function(){
+			// 	menuEle.style.display = "none";
+			// }
+			// document.oncontextmenu = function(){
+			// 	menuEle.style.display = "block";
+			// }
+		}
+	</script>
+</body>
+</html>
